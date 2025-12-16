@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f0a1a">
+    <title>ME - Your Mental Health Companion</title>
+    <meta name="description"
+        content="ME is your friendly AI mental health companion. Talk to an empathetic anime avatar about your feelings and get supportive guidance.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Three.js for 3D Avatar -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <!-- Get Started Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <!-- Dynamic Background Layers -->
+        <div class="welcome-bg-base"></div>
+        <div class="welcome-aurora"></div>
+        <div class="welcome-aurora aurora-2"></div>
+        <div class="welcome-aurora aurora-3"></div>
+        <div class="welcome-orbs">
+            <div class="floating-orb orb-1"></div>
+            <div class="floating-orb orb-2"></div>
+            <div class="floating-orb orb-3"></div>
+            <div class="floating-orb orb-4"></div>
+            <div class="floating-orb orb-5"></div>
+            <div class="floating-orb orb-6"></div>
+        </div>
+        <div class="welcome-stars"></div>
+        <div class="welcome-particles" id="welcomeParticles"></div>
+        <div class="welcome-mesh"></div>
+        
+        <div class="welcome-content">
+            <!-- Animated Logo -->
+            <div class="welcome-logo">
+                <div class="welcome-logo-ring"></div>
+                <div class="welcome-logo-ring ring-2"></div>
+                <div class="welcome-logo-ring ring-3"></div>
+                <svg class="welcome-logo-icon" viewBox="0 0 80 80" fill="none">
+                    <defs>
+                        <linearGradient id="welcomeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#b794ff"/>
+                            <stop offset="50%" style="stop-color:#9b6dff"/>
+                            <stop offset="100%" style="stop-color:#ff6b9d"/>
+                        </linearGradient>
+                        <filter id="welcomeGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="3" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <!-- Heart with brain waves -->
+                    <path class="welcome-heart" d="M40 65 C20 45, 10 30, 20 20 C30 10, 40 18, 40 25 C40 18, 50 10, 60 20 C70 30, 60 45, 40 65Z" 
+                          fill="url(#welcomeGrad)" filter="url(#welcomeGlow)"/>
+                    <path class="welcome-pulse" d="M25 38 L32 38 L35 28 L40 48 L45 33 L48 38 L55 38" 
+                          stroke="#64d8ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+            </div>
+
+            <!-- Welcome Text -->
+            <h1 class="welcome-title">
+                <span class="title-word">Welcome</span>
+                <span class="title-word">to</span>
+                <span class="title-highlight">ME</span>
+            </h1>
+            
+            <p class="welcome-subtitle">Your Mental Health Companion</p>
+
+            <!-- Image Carousel -->
+            <div class="welcome-carousel">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop" alt="Peaceful mountain sunrise" loading="lazy">
+                        <div class="slide-overlay">
+                            <span class="slide-caption">Find Your Inner Peace</span>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=400&h=250&fit=crop" alt="Meditation in nature" loading="lazy">
+                        <div class="slide-overlay">
+                            <span class="slide-caption">Embrace Tranquility</span>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=400&h=250&fit=crop" alt="Sunlight through forest" loading="lazy">
+                        <div class="slide-overlay">
+                            <span class="slide-caption">Healing Through Nature</span>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=400&h=250&fit=crop" alt="Ocean sunset horizon" loading="lazy">
+                        <div class="slide-overlay">
+                            <span class="slide-caption">Let Go & Breathe</span>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop" alt="Calm lake reflection" loading="lazy">
+                        <div class="slide-overlay">
+                            <span class="slide-caption">Reflect & Renew</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="carouselDots">
+                    <button class="carousel-dot active" data-index="0"></button>
+                    <button class="carousel-dot" data-index="1"></button>
+                    <button class="carousel-dot" data-index="2"></button>
+                    <button class="carousel-dot" data-index="3"></button>
+                    <button class="carousel-dot" data-index="4"></button>
+                </div>
+            </div>
+            
+            <!-- Feature Cards -->
+            <div class="welcome-features">
+                <div class="feature-card" style="--delay: 0.2s">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <span>Safe Space to Talk</span>
+                </div>
+                <div class="feature-card" style="--delay: 0.4s">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </div>
+                    <span>Empathetic Support</span>
+                </div>
+                <div class="feature-card" style="--delay: 0.6s">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                        </svg>
+                    </div>
+                    <span>24/7 Availability</span>
+                </div>
+            </div>
+
+            <!-- Get Started Button -->
+            <button class="welcome-btn" id="getStartedBtn">
+                <span class="btn-text">Get Started</span>
+                <span class="btn-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </span>
+                <div class="btn-glow"></div>
+            </button>
+
+            <p class="welcome-disclaimer">
+                💜 A supportive companion, not a replacement for professional care
+            </p>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Full Screen 3D Avatar Background -->
+        <div class="avatar-fullscreen" id="avatar">
+            <!-- 3D Avatar Canvas will be inserted here by avatar3d.js -->
+            <!-- CSS Fallback Avatar (hidden when 3D loads) -->
+            <div class="avatar-character">
+                <div class="avatar-hair"></div>
+                <div class="avatar-face">
+                    <div class="avatar-eyes">
+                        <div class="eye left-eye">
+                            <div class="eye-shine"></div>
+                            <div class="pupil"></div>
+                        </div>
+                        <div class="eye right-eye">
+                            <div class="eye-shine"></div>
+                            <div class="pupil"></div>
+                        </div>
+                    </div>
+                    <div class="avatar-blush left-blush"></div>
+                    <div class="avatar-blush right-blush"></div>
+                    <div class="avatar-mouth" id="avatarMouth"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Overlay -->
+        <header class="app-header">
+            <div class="logo">
+                <div class="logo-mark">
+                    <!-- Heart-Mind Fusion Icon -->
+                    <svg class="logo-icon-svg" viewBox="0 0 60 60" fill="none">
+                        <defs>
+                            <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#b794ff"/>
+                                <stop offset="50%" style="stop-color:#9b6dff"/>
+                                <stop offset="100%" style="stop-color:#ff6b9d"/>
+                            </linearGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                                <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                            </filter>
+                        </defs>
+                        <!-- Outer glow ring -->
+                        <circle class="logo-ring" cx="30" cy="30" r="26" stroke="url(#heartGrad)" stroke-width="2" fill="none" opacity="0.6"/>
+                        <!-- Heart shape with mind waves -->
+                        <path class="logo-heart" d="M30 48 C15 35 8 26 8 19 C8 12 14 8 21 8 C25 8 28 10 30 14 C32 10 35 8 39 8 C46 8 52 12 52 19 C52 26 45 35 30 48Z" fill="url(#heartGrad)" filter="url(#glow)"/>
+                        <!-- Brain waves inside heart -->
+                        <path class="logo-waves" d="M18 24 Q22 20 26 24 Q30 28 34 24 Q38 20 42 24" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"/>
+                        <path class="logo-waves delay" d="M20 30 Q24 26 28 30 Q32 34 36 30 Q40 26 40 30" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+                    </svg>
+                    <div class="logo-particles">
+                        <span class="particle"></span>
+                        <span class="particle"></span>
+                        <span class="particle"></span>
+                    </div>
+                </div>
+                <div class="logo-text">
+                    <h1><span class="letter-m">M</span><span class="letter-e">E</span></h1>
+                    <span class="tagline">Your Mental Health Companion</span>
+                </div>
+            </div>
+            <button class="settings-btn" id="settingsBtn" aria-label="Settings">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+            </button>
+        </header>
+
+        <!-- Avatar Status & Name (centered overlay) -->
+        <div class="avatar-info-overlay">
+            <div class="avatar-name">Aiko</div>
+            <div class="avatar-status" id="avatarStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">Ready to chat</span>
+            </div>
+        </div>
+
+        <!-- Chat Section (Bottom Overlay) -->
+        <div class="chat-section">
+            <div class="chat-messages" id="chatMessages">
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container">
+                <div class="input-wrapper">
+                    <textarea id="messageInput" placeholder="Share what's on your mind..." rows="1"
+                        aria-label="Message input"></textarea>
+                    
+                    <button class="ambient-btn" id="ambientToggleBtn" aria-label="Toggle ambient sounds" title="Peaceful Sounds">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 12c2-3 5-3 7 0s5 3 7 0 5-3 7 0"></path>
+                            <path d="M2 6c2-3 5-3 7 0s5 3 7 0 5-3 7 0"></path>
+                            <path d="M2 18c2-3 5-3 7 0s5 3 7 0 5-3 7 0"></path>
+                        </svg>
+                    </button>
+
+                    <button class="voice-btn" id="voiceToggleBtn" aria-label="Toggle voice" title="Toggle Voice">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        </svg>
+                    </button>
+
+                    <button class="send-btn" id="sendBtn" aria-label="Send message">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disclaimer (small bottom note) -->
+        <div class="disclaimer-overlay">
+            ⚠️ ME is a supportive companion, not a replacement for professional mental health care.
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>API Status</h2>
+                <button class="close-btn" id="closeSettings" aria-label="Close settings">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-content">
+                <!-- Gemini API Status -->
+                <div class="api-status-card" id="geminiStatus">
+                    <div class="api-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <div class="api-info">
+                        <h3>Gemini AI</h3>
+                        <p class="api-model">gemini-2.5-flash</p>
+                    </div>
+                    <div class="api-status-indicator">
+                        <span class="status-badge checking">Checking...</span>
+                    </div>
+                </div>
+
+                <!-- ElevenLabs API Status -->
+                <div class="api-status-card" id="elevenLabsStatus">
+                    <div class="api-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" y1="19" x2="12" y2="23"></line>
+                            <line x1="8" y1="23" x2="16" y2="23"></line>
+                        </svg>
+                    </div>
+                    <div class="api-info">
+                        <h3>ElevenLabs TTS</h3>
+                        <p class="api-model">Voice Synthesis</p>
+                    </div>
+                    <div class="api-status-indicator">
+                        <span class="status-badge checking">Checking...</span>
+                    </div>
+                </div>
+
+                <p class="api-note">API keys are securely stored in the server's <code>.env</code> file.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden elements for settings compatibility -->
+    <div style="display:none;">
+        <select id="geminiModel"><option value="gemini-2.5-flash">gemini-2.5-flash</option></select>
+        <select id="voiceSelect"><option value="21m00Tcm4TlvDq8ikWAM">Rachel</option></select>
+        <input type="checkbox" id="voiceEnabled" checked>
+        <input type="password" id="geminiKey">
+        <input type="password" id="elevenLabsKey">
+        <button id="saveSettings"></button>
+    </div>
+
+    <!-- Audio Player (hidden) -->
+    <audio id="audioPlayer"></audio>
+    <script type="module" src="avatar3d.js?v=2"></script>
+    <script type="module" src="app.js?v=2"></script>
+</body>
+
+</html>
