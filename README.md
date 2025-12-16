@@ -15,7 +15,7 @@ A beautiful, AI-powered mental health companion app featuring a 3D avatar, voice
 
 ## 🚀 Live Demo
 
-Visit:[ [Your Netlify URL here]](https://meappyourmentalhealthcompanion.netlify.app/)
+Visit: https://meappyourmentalhealthcompanion.netlify.app/
 
 ## 🛠️ Tech Stack
 
