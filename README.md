@@ -2,7 +2,7 @@
 
 A beautiful, AI-powered mental health companion app featuring a 3D avatar, voice responses, and calming ambient sounds.
 
-![ME App](https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop)
+<img width="959" height="411" alt="image" src="https://github.com/user-attachments/assets/153f9af2-4ab6-419f-9b08-b6077e072037" />
 
 ## ✨ Features
 
