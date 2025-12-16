@@ -63,32 +63,6 @@ Visit: [Your Netlify URL here]
 
 6. Open http://localhost:3001
 
-## 🌐 Netlify Deployment
-
-### One-Click Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/shakhawathossain07/ME-Your-Mental-Health-Companion)
-
-### Manual Deployment
-
-1. Push your code to GitHub (API keys are already excluded via .gitignore)
-
-2. Connect your repo to Netlify:
-   - Go to [Netlify](https://app.netlify.com)
-   - Click "Add new site" → "Import an existing project"
-   - Select your GitHub repo
-
-3. Configure environment variables in Netlify:
-   - Go to Site Settings → Environment Variables
-   - Add:
-     - `GEMINI_API_KEY` - Your Google Gemini API key
-     - `ELEVENLABS_API_KEY` - Your ElevenLabs API key
-     - `GEMINI_MODEL` - (optional) Default: `gemini-2.5-flash`
-
-4. Deploy! Netlify will automatically:
-   - Serve static files
-   - Deploy serverless functions for API endpoints
-
 ## 🔑 Getting API Keys
 
 ### Gemini API
