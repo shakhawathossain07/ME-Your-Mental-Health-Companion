@@ -1702,29 +1702,39 @@ body {
 /* Chat Section - Right Side Overlay */
 .chat-section {
     position: absolute;
-    bottom: 30px;
+    bottom: auto;
     right: 30px;
     left: auto;
-    top: auto;
-    transform: none;
+    top: 50%;
+    transform: translateY(-50%);
     width: 500px;
     max-width: 50%;
     min-width: 350px;
-    max-height: 90vh;
+    max-height: calc(100vh - 110px);
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     background: transparent;
     border-radius: 20px;
     z-index: 100;
     overflow: visible;
     padding: 0;
+    transition: top 0.4s ease, transform 0.4s ease, bottom 0.4s ease;
+}
+
+/* When chat is active, expand to full height */
+.chat-section.active {
+    top: 80px;
+    bottom: 30px;
+    transform: none;
+    justify-content: flex-start;
 }
 
 /* Chat messages container - hidden until chat starts */
 .chat-messages {
     display: none;
     flex: 1;
-    max-height: 70vh;
+    max-height: calc(100vh - 200px);
     min-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
