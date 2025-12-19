@@ -868,12 +868,12 @@ async function fetchWithRetry(url, options, retries = 3, backoff = 1000) {
     }
 }
 
-// Generate Voice with ElevenLabs (Optimized for token efficiency)
+// Generate Voice with ElevenLabs
 async function generateVoice(text) {
     try {
         setAvatarState('speaking');
 
-        // Aggressive text cleaning to save ElevenLabs credits
+        // Text cleaning for better speech
         let cleanText = text
             .replace(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu, '') // Remove emojis
             .replace(/\*\*|__|~~|`/g, '') // Remove markdown formatting
@@ -881,16 +881,7 @@ async function generateVoice(text) {
             .replace(/[\n\r]+/g, '. ') // Convert newlines to periods
             .trim();
         
-        // Character limit to save credits (ElevenLabs charges per character)
-        const MAX_TTS_CHARS = 300;
-        if (cleanText.length > MAX_TTS_CHARS) {
-            // Truncate at last sentence boundary
-            const truncated = cleanText.substring(0, MAX_TTS_CHARS);
-            const lastPeriod = truncated.lastIndexOf('.');
-            cleanText = lastPeriod > 100 ? truncated.substring(0, lastPeriod + 1) : truncated + '...';
-        }
-        
-        // Skip TTS for very short responses (not worth the API call)
+        // Skip TTS for very short responses
         if (cleanText.length < 10) {
             setAvatarState('idle');
             return;
