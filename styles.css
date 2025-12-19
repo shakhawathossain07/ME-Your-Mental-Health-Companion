@@ -1728,15 +1728,14 @@ body {
     min-height: 200px;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 24px;
+    padding: 24px 16px;
     flex-direction: column;
-    gap: 18px;
+    gap: 12px;
     scrollbar-gutter: stable;
-    background: rgba(15, 10, 30, 0.92);
-    backdrop-filter: blur(25px);
+    background: transparent;
     border-radius: 20px;
     margin-bottom: 15px;
-    border: 1px solid rgba(155, 109, 255, 0.3);
+    border: none;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.4s ease, transform 0.4s ease;
@@ -1775,20 +1774,23 @@ body {
     line-height: 1.5;
 }
 
-/* Message Bubbles */
+/* Message Bubbles - Replika Style */
 .message {
     display: flex;
     flex-direction: column;
     gap: 4px;
     animation: message-appear 0.4s ease-out;
+    max-width: 80%;
 }
 
 .message.user {
     align-items: flex-end;
+    align-self: flex-end;
 }
 
 .message.ai {
     align-items: flex-start;
+    align-self: flex-start;
 }
 
 .message-avatar {
@@ -1800,29 +1802,30 @@ body {
 }
 
 .message-content {
-    max-width: 95%;
+    max-width: 100%;
     padding: 14px 18px;
-    border-radius: 16px;
+    border-radius: 20px;
     font-size: 15px;
-    line-height: 1.7;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    color: #ffffff;
+    line-height: 1.6;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
 }
 
+/* AI Messages - Light/White bubble on left */
 .message.ai .message-content {
-    background: linear-gradient(135deg, rgba(45, 35, 80, 0.98), rgba(35, 25, 60, 0.98));
-    border: 1px solid rgba(155, 109, 255, 0.4);
-    border-bottom-left-radius: 4px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a2e;
+    border-radius: 20px 20px 20px 6px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* User Messages - Minimal gray bubble on right */
 .message.user .message-content {
-    background: linear-gradient(135deg, rgba(155, 109, 255, 0.95), rgba(130, 90, 220, 0.95));
-    border: 1px solid rgba(180, 140, 255, 0.5);
-    border-bottom-right-radius: 4px;
-    color: #ffffff;
+    background: rgba(255, 255, 255, 0.85);
+    color: #1a1a2e;
+    border-radius: 20px 20px 6px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* Typing Indicator */
